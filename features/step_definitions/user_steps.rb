@@ -56,6 +56,10 @@ Given /^I am not logged in$/ do
   visit '/users/sign_out'
 end
 
+Given /^I am logged in$/ do
+  create_user
+  sign_in
+end
 
 ## Then ## 
 
@@ -97,6 +101,14 @@ end
 
 Then /^I should see a mismatched password message$/ do
   page.should have_content "Password confirmationdoesn't match"
+end
+
+Then /^I should see a signed out message$/ do
+  page.should have_content "Signed out successfully."
+end
+
+Then /^I should see an account edited message$/ do
+  page.should have_content "You updated your account successfully."
 end
 
 ## WHEN ## 
@@ -149,6 +161,16 @@ When /^I sign up with a mismatched password confirmation$/ do
   sign_up
 end
 
+When /^I sign out$/ do
+  visit '/users/sign_out'
+end
+
+When /^I edit my account details$/ do
+  click_link "Edit account"
+  fill_in "Name", :with => "newname"
+  fill_in "user_current_password", :with => @visitor[:password]
+  click_button "Update"
+end
 
 When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
