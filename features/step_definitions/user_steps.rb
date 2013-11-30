@@ -60,13 +60,22 @@ Then /^I should be signed in$/ do
   page.should_not have_content "Login"
 end
 
-
 Then /^I see a successful sign in message$/ do
   page.should have_content "Signed in successfully."
 end
 
 
 ## WHEN ## 
+
+When /^I sign in with a wrong password$/ do
+  @visitor = @visitor.merge(:password => "wrongpass")
+  sign_in
+end
+
+When /^I sign in with a wrong email$/ do
+  @visitor = @visitor.merge(:email => "wrong@example.com")
+  sign_in
+end
 
 When /^I sign in with valid credentials$/ do
   create_visitor
