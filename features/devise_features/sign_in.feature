@@ -18,4 +18,18 @@ Feature: Sign in User
 			| Sign up			|
 			| Forgot your password? |
 
+		Scenario: User is not signup
+			Given I do not exist as a user
+			When I sign in with valid credentials
+			Then I see an invalid login message
+			And I should be signed out
+
+		Scenario: User signin succesfully
+			Given I exist as a user
+			And I am not logged in
+			When I sign in with valid credentials
+			Then I see a successful sign in message
+			When I return to the site
+			Then I should be signed in
+
 

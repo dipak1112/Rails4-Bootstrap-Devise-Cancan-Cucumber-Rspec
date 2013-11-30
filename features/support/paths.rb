@@ -12,7 +12,6 @@ module NavigationHelpers
       '/'
     when /the sign up page/
       '/users/sign_up'
-
     when /the sign in page/
       '/users/sign_in'
 
