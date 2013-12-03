@@ -3,6 +3,11 @@ Feature: Sign in User
 	A User
 	Should be able to sign in
 
+		Background: 
+			Given the following user records
+			| name 	| email 								| password 	| password_confirmation |
+			| dipak | dipak@complitech.net 	| password  | password 							|
+			
 		Scenario Outline: Display labels and sign in page
 			Given I am on the home page
 			And I should see "Login"

@@ -8,7 +8,7 @@ end
 def create_user
   create_visitor
   delete_user
-  @user = FactoryGirl.create(:user, email: @visitor[:email], password: @visitor[:password])
+  @user = FactoryGirl.create(:user, email: @visitor[:email], password: @visitor[:password], password_confirmation: @visitor[:password])
 end
 
 def delete_user
@@ -61,6 +61,24 @@ Given /^I am logged in$/ do
   sign_in
 end
 
+Given /^the following user records$/ do |table|
+  table.hashes.each do |hash|  
+    user = FactoryGirl.create(:user)
+  end
+end
+
+Given /^I am logged in as "([^\"]*)" with password "([^\"]*)"$/ do |login, password|  
+  visit '/users/sign_in'
+  fill_in "email", :with => login
+  fill_in "password", :with => password  
+  click_button "Sign in"
+  sleep 2
+end
+
+When /^I visit profile for "([^\"]*)"$/ do |username|
+  user = User.find_by_username!(username)
+  visit user_url(user)
+end
 ## Then ## 
 
 Then /^I see an invalid login message$/ do
